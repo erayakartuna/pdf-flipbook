@@ -8,7 +8,7 @@ Pdf flipbook converter with turnjs and pdfjs libraries.
 
 ## Usage
 
-#### Define PDf Src
+#### Define PDF Src
 
 to define the src, open pdfjs/viewer.js and change to line 30.
 ```javascript
