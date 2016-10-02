@@ -1,28 +1,36 @@
 ﻿var PdfFlip = {
-    magazineMode: false,
+    magazineMode: true,
     oldScale: 1,
     currentPage: 1,
     currentScale: 1,
     layout: 'double',
     maxScale: 2,
+    audioSrc: "sound/page-flip.mp3",
     init: function () {
 
-
         $(window).bind('keydown', function (e) {
-
-            if (e.target && e.target.tagName.toLowerCase() != 'input')
-                if (e.keyCode == 37)
-                    $("#magazine").turn('previous');
-                else if (e.keyCode == 39)
-                    $('#magazine').turn('next');
+            if (e.target && e.target.tagName.toLowerCase() != 'input') {
+                if (e.keyCode == 37) {
+                    $('.directions .prev-button').click();
+                }
+                else if (e.keyCode == 39) {
+                    $('.directions .next-button').click();
+                }
+            }
         });
 
-        $(document).on('click', '#magazineContainer .previous-button', function (e) {
+        $(document).on('change', '.flipbook-toolbar .page-number', function (e) {
+            $("#magazine").turn('page', $(this).val());
+        });
+
+        $(document).on('click', '.flipbook-toolbar .prev , .directions .prev-button', function (e) {
             $("#magazine").turn('previous');
+            return false;
         });
 
-        $(document).on('click', '#magazineContainer .next-button', function (e) {
+        $(document).on('click', '.flipbook-toolbar .next, .directions .next-button', function (e) {
             $("#magazine").turn('next');
+            return false;
         });
 
         document.addEventListener("pagesloaded", PdfFlip.launchMagazineMode, true);
@@ -37,15 +45,19 @@
         PdfFlip.magazineMode = true;
         PdfFlip.oldScale = PDFViewerApplication.pdfViewer.currentScale;
         PDFViewerApplication.pdfViewer.currentScaleValue = 'page-fit';
-        $('#viewerContainer').after('<div id="magazineContainer"><div id="magazine"><div ignore="1" class="next-button"></div><div ignore="1" class="previous-button" style="display: block;"></div></div></div>');
 
+        $('#viewerContainer').after('<div id="magazineContainer"><div id="magazine"></div></div>');
+        $('#viewerContainer').after('<div class="flipbook-toolbar"><a href="#" class="prev"></a><input type="text" class="page-number" placeholder="" /><a href="#" class="next"></a></div>');
+        $('body').append('<div class="directions"><a href="#" class="prev-button"></a><a href="#" class="next-button"></a></div>')
+        $('.flipbook-toolbar .page-number').attr('placeholder', '1/' + PdfFlip.calculateTotalPages());
         $('.toolbar').hide();
-        PdfFlip.currentPage = PDFViewerApplication.page;
-
-
         $("#viewerContainer").hide();
         $("#viewer").hide();
+        $(".se-pre-con").hide();
         $("#magazine").show();
+
+        PdfFlip.currentPage = PDFViewerApplication.page;
+
 
         var pages = [1];
 
@@ -74,15 +86,18 @@
 
                             event.preventDefault();
                         }
+                        PdfFlip.startTurnSound();
+                        PdfFlip.setPageCounter(page);
 
                         PdfFlip.currentPage = page;
-                        PdfFlip.showHidePageButtons(page);
+                    },
+                    turned: function(event, page, view){
+
 
                     }
                 }
             });
 
-            PdfFlip.showHidePageButtons(PdfFlip.currentPage);
 
             setTimeout(function () {
                 $("#magazine").turn("display", PdfFlip.layout);
@@ -149,22 +164,8 @@
 
             }, 10);
         });
-    },
-    showHidePageButtons: function (page) {
-
-        $('#magazineContainer .previous-button').show();
-        $('#magazineContainer .previous-button').show();
 
 
-        if (page == 1)
-            $('#magazineContainer .previous-button').hide();
-        else
-            $('#magazineContainer .previous-button').show();
-
-        if (page == $('#magazine').turn('pages'))
-            $('#magazineContainer .next-button').hide();
-        else
-            $('#magazineContainer .next-button').show();
     },
     resizeViewport: function () {
 
@@ -228,6 +229,21 @@
         }
 
         return bound;
+    },
+    calculateTotalPages: function () {
+        return $('#viewer .page').length;
+    },
+    startTurnSound: function () {
+        var audio = new Audio(PdfFlip.audioSrc);
+        audio.play();
+    },
+    setPageCounter: function (active_page) {
+
+        $('.flipbook-toolbar .page-number').attr('placeholder', active_page + '/' + PdfFlip.calculateTotalPages());
+        if ($('.flipbook-toolbar .page-number').val() != "") {
+            $('.flipbook-toolbar .page-number').val("");
+        }
+
     },
     loadTurnJsPages: function (pages, magazine, isInit, defer, scale) {
         var deferred = null;

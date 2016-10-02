@@ -29,28 +29,22 @@ See https://github.com/adobe-type-tools/cmap-resources
     <title>PDF viewer</title>
     <link rel="stylesheet" href="pdfjs/viewer.css"/>
     <link rel="stylesheet" href="pdf-flip.css"/>
-
-
-    <script src="pdfjs/compatibility.js"></script>
-    <!-- This snippet is used in production (included from viewer.html) -->
-    <link rel="resource" type="application/l10n" href="pdfjs/locale/locale.properties"/>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="turnjs/turn.min.js"></script>
-    <script src="turnjs/zoom.min.js"></script>
-    <script src="pdfjs/l10n.js"></script>
-    <script src="pdfjs/build/pdf.js"></script>
-    <script src="pdfjs/debugger.js"></script>
-    <script src="pdfjs/viewer.js"></script>
-    <script src="pdf-flip.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            PdfFlip.init();
-        });
-    </script>
-
+    <style>
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(pics/loader.gif) center no-repeat #fff;
+        }
+    </style>
 </head>
 
 <body tabindex="1" class="loadingInProgress">
+<div class="se-pre-con"></div>
+
 <div id="outerContainer">
 
     <div id="sidebarContainer">
@@ -308,7 +302,6 @@ See https://github.com/adobe-type-tools/cmap-resources
 
         <div id="viewerContainer" tabindex="0">
             <div id="viewer" class="pdfViewer"></div>
-
         </div>
 
         <div id="errorWrapper" hidden='true'>
@@ -419,11 +412,31 @@ See https://github.com/adobe-type-tools/cmap-resources
                 </div>
             </div>
         </div>
+
     </div>
     <!-- overlayContainer -->
 
 </div>
+
+
 <!-- outerContainer -->
+
+<script src="pdfjs/compatibility.js"></script>
+<!-- This snippet is used in production (included from viewer.html) -->
+<link rel="resource" type="application/l10n" href="pdfjs/locale/locale.properties"/>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="turnjs/turn.min.js"></script>
+<script src="turnjs/zoom.min.js"></script>
+<script src="pdfjs/l10n.js"></script>
+<script src="pdfjs/build/pdf.js"></script>
+<script src="pdfjs/debugger.js"></script>
+<script src="pdfjs/viewer.js"></script>
+<script src="pdf-flip.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PdfFlip.init();
+    });
+</script>
 
 </body>
 </html>
