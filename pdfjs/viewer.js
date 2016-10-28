@@ -2304,14 +2304,14 @@ var SecondaryToolbar = {
   },
 
   firstPageClick: function secondaryToolbarFirstPageClick(evt) {
-    PDFViewerApplication.page = 1;
+    //PDFViewerApplication.page = 1;
     this.close();
   },
 
   lastPageClick: function secondaryToolbarLastPageClick(evt) {
-    if (PDFViewerApplication.pdfDocument) {
+    /*if (PDFViewerApplication.pdfDocument) {
       PDFViewerApplication.page = PDFViewerApplication.pagesCount;
-    }
+    }*/
     this.close();
   },
 

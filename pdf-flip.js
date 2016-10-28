@@ -20,7 +20,17 @@
         });
 
 
+        $(document).on('click','#firstPage',function(){
+            $("#magazine").turn('page', 1);
+        });
+
+        $(document).on('click','#lastPage',function(){
+            $("#magazine").turn('page', PDFViewerApplication.pagesCount);
+        });
+
+
         $(document).on('click','#thumbnailView a',function(){
+
           $('.toolbar .pageNumber').trigger('change');
         });
 
@@ -93,7 +103,7 @@
                         PDFViewerApplication.page = page;
                     },
                     turned: function(event, page, view){
-                        
+
                     }
                 }
             });
