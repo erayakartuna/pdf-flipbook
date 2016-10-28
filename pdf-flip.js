@@ -19,16 +19,21 @@
             }
         });
 
-        $(document).on('change', '.flipbook-toolbar .page-number', function (e) {
+
+        $(document).on('click','#thumbnailView a',function(){
+          $('.toolbar .pageNumber').trigger('change');
+        });
+
+        $(document).on('change', '.toolbar .pageNumber', function (e) {
             $("#magazine").turn('page', $(this).val());
         });
 
-        $(document).on('click', '.flipbook-toolbar .prev , .directions .prev-button', function (e) {
+        $(document).on('click', '.toolbar #previous , .directions .prev-button', function (e) {
             $("#magazine").turn('previous');
             return false;
         });
 
-        $(document).on('click', '.flipbook-toolbar .next, .directions .next-button', function (e) {
+        $(document).on('click', '.toolbar #next, .directions .next-button', function (e) {
             $("#magazine").turn('next');
             return false;
         });
@@ -47,10 +52,7 @@
         PDFViewerApplication.pdfViewer.currentScaleValue = 'page-fit';
 
         $('#viewerContainer').after('<div id="magazineContainer"><div id="magazine"></div></div>');
-        $('#viewerContainer').after('<div class="flipbook-toolbar"><a href="#" class="prev"></a><input type="text" class="page-number" placeholder="" /><a href="#" class="next"></a></div>');
         $('body').append('<div class="directions"><a href="#" class="prev-button"></a><a href="#" class="next-button"></a></div>')
-        $('.flipbook-toolbar .page-number').attr('placeholder', '1/' + PdfFlip.calculateTotalPages());
-        $('.toolbar').hide();
         $("#viewerContainer").hide();
         $("#viewer").hide();
         $(".se-pre-con").hide();
@@ -87,13 +89,11 @@
                             event.preventDefault();
                         }
                         PdfFlip.startTurnSound();
-                        PdfFlip.setPageCounter(page);
-
                         PdfFlip.currentPage = page;
+                        PDFViewerApplication.page = page;
                     },
                     turned: function(event, page, view){
-
-
+                        
                     }
                 }
             });
@@ -237,14 +237,7 @@
         var audio = new Audio(PdfFlip.audioSrc);
         audio.play();
     },
-    setPageCounter: function (active_page) {
 
-        $('.flipbook-toolbar .page-number').attr('placeholder', active_page + '/' + PdfFlip.calculateTotalPages());
-        if ($('.flipbook-toolbar .page-number').val() != "") {
-            $('.flipbook-toolbar .page-number').val("");
-        }
-
-    },
     loadTurnJsPages: function (pages, magazine, isInit, defer, scale) {
         var deferred = null;
 

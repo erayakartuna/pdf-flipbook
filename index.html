@@ -149,7 +149,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
                 <div class="horizontalToolbarSeparator"></div>
 
-                <button id="toggleHandTool" class="secondaryToolbarButton handTool" title="Enable hand tool"
+                <button id="toggleHandTool" class="secondaryToolbarButton handTool" style="display:none;" title="Enable hand tool"
                         tabindex="60" data-l10n-id="hand_tool_enable">
                     <span data-l10n-id="hand_tool_enable_label">Enable hand tool</span>
                 </button>
@@ -166,14 +166,14 @@ See https://github.com/adobe-type-tools/cmap-resources
 
         <div class="toolbar">
             <div id="toolbarContainer">
-                <div id="toolbarViewer" style="display:none;">
+                <div id="toolbarViewer" >
                     <div id="toolbarViewerLeft">
                         <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11"
                                 data-l10n-id="toggle_sidebar">
                             <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
                         </button>
                         <div class="toolbarButtonSpacer"></div>
-                        <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document"
+                        <button id="viewFind" style="display:none" class="toolbarButton group hiddenSmallView" title="Find in Document"
                                 tabindex="12" data-l10n-id="findbar">
                             <span data-l10n-id="findbar_label">Find</span>
                         </button>
@@ -203,7 +203,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                           <span data-l10n-id="open_file_label">Open</span>
                         </button>-->
 
-                        <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33"
+                        <button id="print" style="display:none;" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33"
                                 data-l10n-id="print">
                             <span data-l10n-id="print_label">Print</span>
                         </button>
@@ -224,7 +224,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                             <span data-l10n-id="tools_label">Tools</span>
                         </button>
                     </div>
-                    <div class="outerCenter">
+                    <div class="outerCenter hidden">
                         <div class="innerCenter" id="toolbarViewerMiddle">
                             <div class="splitToolbarButton">
                                 <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21"
@@ -237,7 +237,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                                     <span data-l10n-id="zoom_in_label">Zoom In</span>
                                 </button>
                             </div>
-                  <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                  <span id="scaleSelectContainer"   >
                      <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
                          <option id="pageAutoOption" title="" value="auto" selected="selected"
                                  data-l10n-id="page_scale_auto">Automatic Zoom
