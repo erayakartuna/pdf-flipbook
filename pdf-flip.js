@@ -9,11 +9,12 @@
     init: function () {
 
         $(window).bind('keydown', function (e) {
+            console.log(e.keyCode);
             if (e.target && e.target.tagName.toLowerCase() != 'input') {
-                if (e.keyCode == 37) {
+                if (e.keyCode == 37 || e.keyCode == 38) {
                     $('.directions .prev-button').click();
                 }
-                else if (e.keyCode == 39) {
+                else if (e.keyCode == 39 || e.keyCode == 40) {
                     $('.directions .next-button').click();
                 }
             }
@@ -30,7 +31,6 @@
 
 
         $(document).on('click','#thumbnailView a',function(){
-
           $('.toolbar .pageNumber').trigger('change');
         });
 
